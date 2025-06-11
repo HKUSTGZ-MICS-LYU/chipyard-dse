@@ -26,28 +26,28 @@ class WithRocketDSE(
           mulEarlyOut = true,
           divEarlyOut = true,
         )),
-        useVM = false,
+        useVM = true,
         useZba = true,
         useZbb = true,
         useZbs = true,
         fpu = Some(FPUParams(minFLen = 16))),
       dcache = Some(DCacheParams(
-        nSets = 64,
-        nWays = 4,
+        nSets = 32,
+        nWays = 2,
         rowBits = site(SystemBusKey).beatBits,
-        nMSHRs = 3,
+        nMSHRs = 1,
         blockBytes = site(CacheBlockBytes))),
       icache = Some(ICacheParams(
         nSets = 64,
-        nWays = 2,
+        nWays = 4,
         nTLBSets = 1,
-        nTLBWays = 4,
+        nTLBWays = 28,
         rowBits = site(SystemBusKey).beatBits,
         blockBytes = site(CacheBlockBytes))),
       btb = Some(BTBParams(
-        nRAS = 9,
-        nEntries = 14,
-        bhtParams = Some(BHTParams(nEntries=256))
+        nRAS = 3,
+        nEntries = 42,
+        bhtParams = Some(BHTParams(nEntries=768))
       ))
     )
     List.tabulate(n)(i => RocketTileAttachParams(
