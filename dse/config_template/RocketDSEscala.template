@@ -1,0 +1,11 @@
+package chipyard
+
+import org.chipsalliance.cde.config.{Config}
+import freechips.rocketchip.prci.{AsynchronousCrossing}
+import freechips.rocketchip.subsystem.{InCluster}
+
+
+class RocketDSEConfig extends Config(
+
+    
+)
