@@ -9,3 +9,21 @@ class RocketDSEConfig extends Config(
 class RocketDSESimConfig extends Config(
   new freechips.rocketchip.subsystem.WithoutTLMonitors ++
   new RocketDSEConfig)
+
+class BoomV3DSEConfig extends Config(
+  new boom.v3.common.WithBoomV3DSE(1) ++
+  new chipyard.config.WithSystemBusWidth(128) ++
+  new chipyard.config.AbstractConfig)
+
+class BoomV3DSESimConfig extends Config(
+  new freechips.rocketchip.subsystem.WithoutTLMonitors ++
+  new BoomV3DSEConfig)
+
+class BoomV4DSEConfig extends Config(
+  new boom.v4.common.WithBoomV4DSE(1) ++
+  new chipyard.config.WithSystemBusWidth(128) ++
+  new chipyard.config.AbstractConfig)
+
+class BoomV4DSESimConfig extends Config(
+  new freechips.rocketchip.subsystem.WithoutTLMonitors ++
+  new BoomV4DSEConfig)
