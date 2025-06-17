@@ -14,9 +14,8 @@ import boom.v3.ifu._
 import boom.v3.exu._
 import boom.v3.lsu._
 
-
 class WithBoomV3DSE(n: Int = 1) extends Config(
-  new WithTAGELBPD ++ // Default to TAGE-L BPD
+  new WithBoom2BPD ++
   new Config((site, here, up) => {
     case TilesLocated(InSubsystem) => {
       val prev = up(TilesLocated(InSubsystem), site)
@@ -25,29 +24,31 @@ class WithBoomV3DSE(n: Int = 1) extends Config(
         BoomTileAttachParams(
           tileParams = BoomTileParams(
             core = BoomCoreParams(
-              fetchWidth = 8,
-              decodeWidth = 5,
-              numRobEntries = 130,
+              fetchWidth = 4,
+              decodeWidth = 1,
+              numRobEntries = 80,
               issueParams = Seq(
-                IssueParams(issueWidth=2, numEntries=24, iqType=IQT_MEM.litValue, dispatchWidth=5),
-                IssueParams(issueWidth=5, numEntries=40, iqType=IQT_INT.litValue, dispatchWidth=5),
-                IssueParams(issueWidth=2, numEntries=32, iqType=IQT_FP.litValue , dispatchWidth=5)),
-              numIntPhysRegisters = 128,
-              numFpPhysRegisters = 128,
+                IssueParams(issueWidth=1, numEntries=8, iqType=IQT_MEM.litValue, dispatchWidth=1),
+                IssueParams(issueWidth=1, numEntries=8, iqType=IQT_INT.litValue, dispatchWidth=1),
+                IssueParams(issueWidth=1, numEntries=16, iqType=IQT_FP.litValue , dispatchWidth=1)),
+              numIntPhysRegisters = 64,
+              numFpPhysRegisters = 64,
               numLdqEntries = 32,
               numStqEntries = 32,
-              maxBrCount = 20,
-              numFetchBufferEntries = 35,
+              maxBrCount = 24,
+              numFetchBufferEntries = 16,
               enablePrefetching = true,
               numDCacheBanks = 1,
               ftq = FtqParameters(nEntries=40),
               fpu = Some(freechips.rocketchip.tile.FPUParams(sfmaLatency=4, dfmaLatency=4, divSqrt=true))
             ),
             dcache = Some(
-              DCacheParams(rowBits = 128, nSets=64, nWays=8, nMSHRs=8, nTLBWays=32)
+              DCacheParams(rowBits = 64, nSets=32, nWays=1, 
+                nMSHRs=1, nTLBWays=4)
             ),
             icache = Some(
-              ICacheParams(rowBits = 128, nSets=64, nWays=8, fetchBytes=4*4)
+              ICacheParams(rowBits = 64, nSets=32, nWays=2, 
+              fetchBytes=8)
             ),
             tileId = i + idOffset
           ),
