@@ -27,3 +27,11 @@ class BoomV4DSEConfig extends Config(
 class BoomV4DSESimConfig extends Config(
   new freechips.rocketchip.subsystem.WithoutTLMonitors ++
   new BoomV4DSEConfig)
+
+class ShuttleDSEConfig extends Config(
+  new shuttle.common.WithShuttleDSE ++
+  new chipyard.config.AbstractConfig)
+
+class ShuttleDSESimConfig extends Config(
+  new freechips.rocketchip.subsystem.WithoutTLMonitors ++
+  new ShuttleDSEConfig)
